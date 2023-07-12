@@ -4,9 +4,9 @@
     <title>Microsoft CRM Web API Basic Operations Example</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <script src="../ClientGlobalContext.js.aspx" type="text/javascript"></script>
-    <script src="scripts/es6promise.js" type="text/javascript"></script>
-    <script src="scripts/WebAPIBasicOperations.js" type="text/javascript"></script>
+    <script src="../../WebResources/ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <script src="ya_es6promise.js" type="text/javascript"></script>
+    <script src="ya_WebAPIQuery.js" type="text/javascript"></script>
 
     <style type="text/css">
         body {
@@ -39,16 +39,7 @@
         developer tools to view the output written to the console (e.g.: in IE 11
         or Microsoft Edge, press F12 to load the Developer Tools).
     </p>
-    <p>
-        Remove sample data (Choose whether you want to delete sample data created
-        during this execution):
-        <br />
-        <input name="removesampledata" type="radio" value="yes" checked />
-        Yes
-        <input name="removesampledata" type="radio" value="no" />
-        No
-    </p>
-    <input type="button" name="start_sample" value="Start Sample" onclick="Sdk.startSample()" />
+    <input type="button" name="start_sample" value="Start Sample" onclick="Sdk.initialize()" />
 </body>
 
 </html>
