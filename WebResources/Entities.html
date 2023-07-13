@@ -1,0 +1,126 @@
+<html>
+
+<head>
+    <title>Microsoft CRM Web API Basic Operations Example</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <script src="../../WebResources/ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <script src="ya_es6promise.js" type="text/javascript"></script>
+    <script src="ya_WebAPIQuery.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #preferences {
+            border: inset;
+            padding: 10px 10px;
+        }
+
+        #output_area {
+            border: inset;
+            background-color: gainsboro;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="entities">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sort" data-sort="DisplayName">DisplayName</th>
+
+                    <th class="sort" data-sort="CollectionSchemaName">CollectionSchemaName</th>
+                    <th class="sort" data-sort="CreatedOn">CreatedOn</th>
+                    <th class="sort" data-sort="Description">Description</th>
+                    <th class="sort" data-sort="DisplayCollectionName">DisplayCollectionName
+                    </th>
+                    <th class="sort" data-sort="EntitySetName">EntitySetName</th>
+                    <th class="sort" data-sort="ExternalCollectionName">ExternalCollectionName</th>
+                    <th class="sort" data-sort="ExternalName">ExternalName</th>
+                    <th class="sort" data-sort="IsActivity">IsActivity</th>
+                    <th class="sort" data-sort="LogicalCollectionName">LogicalCollectionName</th>
+                    <th class="sort" data-sort="LogicalName">LogicalName</th>
+                    <th class="sort" data-sort="PrimaryNameAttribute">PrimaryNameAttribute</th>
+                    <th class="sort" data-sort="SchemaName">SchemaName</th>
+                    <th class="sort" data-sort="TableType">TableType</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr>
+                    <td class="DisplayName"></td>
+
+                    <td class="CollectionSchemaName"></td>
+                    <td class="CreatedOn"></td>
+                    <td class="Description"></td>
+                    <td class="DisplayCollectionName"></td>
+                    <td class="EntitySetName"></td>
+                    <td class="ExternalCollectionName"></td>
+                    <td class="ExternalName"></td>
+                    <td class="IsActivity"></td>
+                    <td class="LogicalCollectionName"></td>
+                    <td class="LogicalName"></td>
+                    <td class="PrimaryNameAttribute"></td>
+                    <td class="SchemaName"></td>
+                    <td class="TableType"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+        var options = {
+            valueNames: [
+                'DisplayName',
+
+                'CollectionSchemaName',
+                'CreatedOn',
+                'Description',
+                'DisplayCollectionName',
+                'EntitySetName',
+                'ExternalCollectionName',
+                'ExternalName',
+                'IsActivity',
+                'LogicalCollectionName',
+                'LogicalName',
+                'PrimaryNameAttribute',
+                'SchemaName',
+                'TableType'
+            ]
+        };
+        var entityList = new List('entities', options);
+        entityList.sort('DisplayName', { order: 'asc' });
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            Sdk.initializeEntities();
+        });
+    </script>
+
+    <style>
+        table {
+            border: 1px solid #666666;
+        }
+
+        th {
+            border: 1px solid #666666;
+        }
+
+        td {
+            border: 1px solid #666666;
+        }
+
+        .sort.desc:after {
+            content: "▼";
+        }
+
+        .sort.asc:after {
+            content: "▲";
+        }
+    </style>
+</body>
+
+</html>

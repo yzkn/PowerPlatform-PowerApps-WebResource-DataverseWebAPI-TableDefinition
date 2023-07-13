@@ -161,12 +161,12 @@ Sdk.request = function (action, uri, data, addHeader) {
 };
 
 /**
- * @function initialize
+ * @function initializeEntities
  * @description Runs the sample.
  * This sample demonstrates basic CRUD+ operations.
  * Results are sent to the debugger's console window.
  */
-Sdk.initialize = function () {
+Sdk.initializeEntities = function () {
 
     /**
      * Behavior of this sample varies by version
@@ -213,11 +213,126 @@ Sdk.retrieveEntityDefinitions = function () {
 
                 response.value.forEach((item) => {
                     entityList.add({
-                        SchemaName: item.SchemaName,
+                        DisplayName: item.DisplayName?.UserLocalizedLabel?.Label ?? "",
+
+                        CollectionSchemaName: item.CollectionSchemaName,
+                        CreatedOn: item.CreatedOn,
+                        Description: item.Description?.UserLocalizedLabel?.Label ?? "",
+                        DisplayCollectionName: item.DisplayCollectionName?.UserLocalizedLabel?.Label ?? "",
+                        EntitySetName: item.EntitySetName,
+                        ExternalCollectionName: item.ExternalCollectionName,
+                        ExternalName: item.ExternalName,
+                        IsActivity: item.IsActivity,
+                        LogicalCollectionName: item.LogicalCollectionName,
                         LogicalName: item.LogicalName,
-                        DisplayName: item.DisplayName?.UserLocalizedLabel?.Label ?? ""
+                        PrimaryNameAttribute: item.PrimaryNameAttribute,
+                        SchemaName: item.SchemaName,
+                        TableType: item.TableType
+                    });
+                });
+
+                Array.from(document.getElementsByClassName("LogicalName")).forEach(element => {
+                    element.addEventListener("click", (event) => {
+                        window.open("/WebResources/ya_Attributes?data=" + event.target.innerText);
+                    }, false)
+                });
+            })
+            .catch(function (err) {
+                reject(err);
+            });
+    });
+};
+
+Sdk.retrieveAttributeDefinitions = function (entityLogicalName) {
+    return new Promise(function (resolve, reject) {
+        Sdk.request("GET", "/EntityDefinitions(LogicalName='" + entityLogicalName + "')/Attributes", null)
+            .then(function (request) {
+                // Process response from previous request.
+                var response = JSON.parse(request.response);
+                console.log("response", response);
+
+                response.value.forEach((item) => {
+                    if (item.MaxLength) {
+                        console.log("item.MaxLength", item.MaxLength)
+                    }
+                    attributeList.add({
+                        DisplayName: item.DisplayName?.UserLocalizedLabel?.Label ?? "",
+
+                        AttributeType: item.AttributeType,
+                        AttributeTypeName: item.AttributeTypeName?.Value ?? "",
+                        ColumnNumber: item.ColumnNumber,
+                        CreatedOn: item.CreatedOn,
+                        DatabaseLength: item.DatabaseLength ?? "",
+                        Description: item.Description?.UserLocalizedLabel?.Label ?? "",
+                        EntityLogicalName: item.EntityLogicalName,
+                        ExternalName: item.ExternalName,
+                        FormatName: item.FormatName?.Value ?? "",
+                        ImeMode: item.ImeMode ?? "",
+                        IsPrimaryName: item.IsPrimaryName,
+                        LogicalName: item.LogicalName,
+                        MaxLength: item.MaxLength ?? "",
+                        SchemaName: item.SchemaName
                     })
                 })
+            })
+            .catch(function (err) {
+                reject(err);
+            });
+    });
+};
+
+Sdk.initializeAttributes = function () {
+    return new Promise(async function (resolve, reject) {
+        await Sdk.retrieveEntities();
+
+        const selected = document.getElementById("entitySelector").value;
+        if (selected) {
+            return Sdk.retrieveAttributeDefinitions(selected);
+        }
+    });
+};
+
+function getDataParam() {
+    var vals = new Array();
+    if (location.search != "") {
+        vals = location.search.substr(1).split("&");
+        for (var i in vals) {
+            vals[i] = vals[i].replace(/\+/g, " ").split("=");
+        }
+        //look for the parameter named 'data'
+        var found = false;
+        for (var i in vals) {
+            if (vals[i][0].toLowerCase() == "data") {
+                found = true;
+                break;
+            }
+        }
+    }
+    if (found) {
+        return vals[i][1];
+    }
+}
+
+Sdk.retrieveEntities = function () {
+    return new Promise(function (resolve, reject) {
+        Sdk.request("GET", "/EntityDefinitions", null)
+            .then(function (request) {
+                var response = JSON.parse(request.response);
+
+                const dataParam = getDataParam();
+
+                var entitySelector = document.getElementById("entitySelector");
+                response.value.forEach((item) => {
+                    var option = document.createElement("option");
+                    option.value = item.LogicalName;
+                    option.innerHTML = item.DisplayName?.UserLocalizedLabel?.Label ?? item.LogicalName;
+                    if (dataParam && dataParam == item.LogicalName) {
+                        option.selected = true;
+                    }
+                    entitySelector.add(option);
+                });
+
+                resolve();
             })
             .catch(function (err) {
                 reject(err);

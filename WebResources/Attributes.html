@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <title>Microsoft CRM Web API Basic Operations Example</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <script src="../../WebResources/ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <script src="ya_es6promise.js" type="text/javascript"></script>
+    <script src="ya_WebAPIQuery.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #preferences {
+            border: inset;
+            padding: 10px 10px;
+        }
+
+        #output_area {
+            border: inset;
+            background-color: gainsboro;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="entitySelector"></select>
+    <div id="attributes">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sort" data-sort="DisplayName">DisplayName</th>
+
+                    <th class="sort" data-sort="AttributeType">AttributeType</th>
+                    <th class="sort" data-sort="AttributeTypeName">AttributeTypeName</th>
+                    <th class="sort" data-sort="ColumnNumber">ColumnNumber</th>
+                    <th class="sort" data-sort="CreatedOn">CreatedOn</th>
+                    <th class="sort" data-sort="DatabaseLength">DatabaseLength</th>
+                    <th class="sort" data-sort="Description">Description</th>
+                    <th class="sort" data-sort="EntityLogicalName">EntityLogicalName</th>
+                    <th class="sort" data-sort="ExternalName">ExternalName</th>
+                    <th class="sort" data-sort="FormatName">FormatName</th>
+                    <th class="sort" data-sort="ImeMode">ImeMode</th>
+                    <th class="sort" data-sort="IsPrimaryName">IsPrimaryName</th>
+                    <th class="sort" data-sort="LogicalName">LogicalName</th>
+                    <th class="sort" data-sort="MaxLength">MaxLength</th>
+                    <th class="sort" data-sort="SchemaName">SchemaName</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr>
+                    <td class="DisplayName"></td>
+
+                    <td class="AttributeType"></td>
+                    <td class="AttributeTypeName"></td>
+                    <td class="ColumnNumber"></td>
+                    <td class="CreatedOn"></td>
+                    <td class="DatabaseLength"></td>
+                    <td class="Description"></td>
+                    <td class="EntityLogicalName"></td>
+                    <td class="ExternalName"></td>
+                    <td class="FormatName"></td>
+                    <td class="ImeMode"></td>
+                    <td class="IsPrimaryName"></td>
+                    <td class="LogicalName"></td>
+                    <td class="MaxLength"></td>
+                    <td class="SchemaName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+        var options = {
+            valueNames: [
+                'DisplayName',
+
+                'AttributeType',
+                'AttributeTypeName',
+                'ColumnNumber',
+                'CreatedOn',
+                'DatabaseLength',
+                'Description',
+                'EntityLogicalName',
+                'ExternalName',
+                'FormatName',
+                'ImeMode',
+                'IsPrimaryName',
+                'LogicalName',
+                'MaxLength',
+                'SchemaName'
+            ]
+        };
+        var attributeList = new List('attributes', options);
+        attributeList.sort('DisplayName', { order: 'asc' });
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById("entitySelector").addEventListener("change", event => {
+                Sdk.retrieveAttributeDefinitions(event.target.value);
+            }, false);
+
+            Sdk.initializeAttributes();
+        });
+    </script>
+
+    <style>
+        table {
+            border: 1px solid #666666;
+        }
+
+        th {
+            border: 1px solid #666666;
+        }
+
+        td {
+            border: 1px solid #666666;
+        }
+
+        .sort.desc:after {
+            content: "▼";
+        }
+
+        .sort.asc:after {
+            content: "▲";
+        }
+    </style>
+</body>
+
+</html>
