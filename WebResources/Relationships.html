@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>Definitions</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <script src="../../WebResources/ClientGlobalContext.js.aspx" type="text/javascript"></script>
+    <script src="ya_es6promise.js" type="text/javascript"></script>
+    <script src="ya_WebAPIQuery.js" type="text/javascript"></script>
+
+    <style type="text/css">
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #preferences {
+            border: inset;
+            padding: 10px 10px;
+        }
+
+        #output_area {
+            border: inset;
+            background-color: gainsboro;
+            padding: 10px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="relationships">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sort" data-sort="SchemaName">SchemaName</th>
+
+                    <th class="sort" data-sort="IsHierarchical">IsHierarchical</th>
+                    <th class="sort" data-sort="ReferencedAttribute">ReferencedAttribute</th>
+                    <th class="sort" data-sort="ReferencedEntity">ReferencedEntity</th>
+                    <th class="sort" data-sort="ReferencingAttribute">ReferencingAttribute</th>
+                    <th class="sort" data-sort="ReferencingEntity">ReferencingEntity</th>
+                    <th class="sort" data-sort="RelationshipType">RelationshipType</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr>
+                    <td class="SchemaName"></td>
+
+                    <td class="IsHierarchical"></td>
+                    <td class="ReferencedAttribute"></td>
+                    <td class="ReferencedEntity"></td>
+                    <td class="ReferencingAttribute"></td>
+                    <td class="ReferencingEntity"></td>
+                    <td class="RelationshipType"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+        var options = {
+            valueNames: [
+                'SchemaName',
+
+                'IsHierarchical',
+                'ReferencedAttribute',
+                'ReferencedEntity',
+                'ReferencingAttribute',
+                'ReferencingEntity',
+                'RelationshipType'
+            ]
+        };
+        var relationshipList = new List('relationships', options);
+        relationshipList.sort('SchemaName', { order: 'asc' });
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            Sdk.retrieveRelationshipDefinitions();
+        });
+    </script>
+
+    <style>
+        table {
+            border: 1px solid #666666;
+        }
+
+        th {
+            border: 1px solid #666666;
+        }
+
+        td {
+            border: 1px solid #666666;
+        }
+
+        .sort.desc:after {
+            content: "▼";
+        }
+
+        .sort.asc:after {
+            content: "▲";
+        }
+    </style>
+</body>
+
+</html>

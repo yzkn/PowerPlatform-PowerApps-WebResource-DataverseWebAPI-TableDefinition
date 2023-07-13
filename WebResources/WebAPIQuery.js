@@ -252,9 +252,6 @@ Sdk.retrieveAttributeDefinitions = function (entityLogicalName) {
                 console.log("response", response);
 
                 response.value.forEach((item) => {
-                    if (item.MaxLength) {
-                        console.log("item.MaxLength", item.MaxLength)
-                    }
                     attributeList.add({
                         DisplayName: item.DisplayName?.UserLocalizedLabel?.Label ?? "",
 
@@ -333,6 +330,33 @@ Sdk.retrieveEntities = function () {
                 });
 
                 resolve();
+            })
+            .catch(function (err) {
+                reject(err);
+            });
+    });
+};
+
+Sdk.retrieveRelationshipDefinitions = function () {
+    return new Promise(function (resolve, reject) {
+        Sdk.request("GET", "/RelationshipDefinitions", null)
+            .then(function (request) {
+                // Process response from previous request.
+                var response = JSON.parse(request.response);
+                console.log("response", response);
+
+                response.value.forEach((item) => {
+                    relationshipList.add({
+                        SchemaName: item.SchemaName,
+
+                        IsHierarchical: item.IsHierarchical,
+                        ReferencedAttribute: item.ReferencedAttribute,
+                        ReferencedEntity: item.ReferencedEntity,
+                        ReferencingAttribute: item.ReferencingAttribute,
+                        ReferencingEntity: item.ReferencingEntity,
+                        RelationshipType: item.RelationshipType
+                    })
+                })
             })
             .catch(function (err) {
                 reject(err);
