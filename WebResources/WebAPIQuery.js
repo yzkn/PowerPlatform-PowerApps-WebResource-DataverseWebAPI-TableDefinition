@@ -210,6 +210,14 @@ Sdk.retrieveEntityDefinitions = function () {
                 // Process response from previous request.
                 var response = JSON.parse(request.response);
                 console.log("response", response);
+
+                response.value.forEach((item) => {
+                    entityList.add({
+                        SchemaName: item.SchemaName,
+                        LogicalName: item.LogicalName,
+                        DisplayName: item.DisplayName?.UserLocalizedLabel?.Label ?? ""
+                    })
+                })
             })
             .catch(function (err) {
                 reject(err);

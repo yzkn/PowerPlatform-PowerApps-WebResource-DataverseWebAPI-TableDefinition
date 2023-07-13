@@ -40,6 +40,56 @@
         or Microsoft Edge, press F12 to load the Developer Tools).
     </p>
     <input type="button" name="start_sample" value="Start Sample" onclick="Sdk.initialize()" />
+
+    <div id="entities">
+        <table>
+            <thead>
+                <tr>
+                    <th class="sort" data-sort="SchemaName">SchemaName</th>
+                    <th class="sort" data-sort="LogicalName">LogicalName</th>
+                    <th class="sort" data-sort="DisplayName">DisplayName</th>
+                </tr>
+            </thead>
+            <tbody class="list">
+                <tr>
+                    <td class="SchemaName"></td>
+                    <td class="LogicalName"></td>
+                    <td class="DisplayName"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+        var options = {
+            valueNames: ['SchemaName', 'LogicalName', 'DisplayName']
+        };
+        var entityList = new List('entities', options);
+        entityList.sort('SchemaName', { order: 'asc' });
+    </script>
+
+    <style>
+        table {
+            border: 1px solid #666666;
+        }
+
+        th {
+            border: 1px solid #666666;
+        }
+
+        td {
+            border: 1px solid #666666;
+        }
+
+        .sort.desc:after {
+            content: "▼";
+        }
+
+        .sort.asc:after {
+            content: "▲";
+        }
+    </style>
 </body>
 
 </html>
